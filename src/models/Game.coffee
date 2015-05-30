@@ -17,6 +17,11 @@ class window.Game extends Backbone.Model
     @set 'playerHand', @get('deck').dealPlayer()
     @set 'dealerHand', @get('deck').dealDealer()
     @get('playerHand').on 'stand', ->
+      if @get('playerHand').bestScore() == 21 and @get('playerHand').length == 2
+        alert "BLACKJACK!"
+        @set 'chips', @get('chips') + 1.5*@get('bet')
+        @listen
+        return
       @get('dealerHand').start()
     , @
     @get('playerHand') .on 'bust', ->
