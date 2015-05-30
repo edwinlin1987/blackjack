@@ -1,8 +1,8 @@
 class window.AppView extends Backbone.View
   template: _.template '
-    <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
-    <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
+    <div class="player-hand-container"></div>
+    <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
   '
 
   events:
@@ -14,6 +14,9 @@ class window.AppView extends Backbone.View
       @initialize()
     , @
     @model.get('dealerHand') .on 'bust', ->
+      @initialize()
+    , @
+    @model.get('playerHand') .on 'compare', ->
       @initialize()
     , @
     @model.get('dealerHand') .on 'compare', ->
@@ -31,6 +34,6 @@ class window.AppView extends Backbone.View
   render: ->
     @$el.children().detach()
     @$el.html @template()
-    @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
+    @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
 

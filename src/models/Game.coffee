@@ -7,8 +7,8 @@ class window.Game extends Backbone.Model
     @set 'bet', 0
     @get('deck').on 'remove', ->
       if @get('deck').length <= 0
-        alert "Out of cards... Starting a new game!"
-        @get('deck').reset(null)
+        alert "Out of cards... Shuffling the Deck!"
+        #@get('deck').reset(null)
         @get('deck').initialize()
     , @
     @listen()
@@ -17,11 +17,6 @@ class window.Game extends Backbone.Model
     @set 'playerHand', @get('deck').dealPlayer()
     @set 'dealerHand', @get('deck').dealDealer()
     @get('playerHand').on 'stand', ->
-      if @get('playerHand').bestScore() == 21 and @get('playerHand').length == 2
-        alert "BLACKJACK!"
-        @set 'chips', @get('chips') + 1.5*@get('bet')
-        @listen
-        return
       @get('dealerHand').start()
     , @
     @get('playerHand') .on 'bust', ->
@@ -32,6 +27,11 @@ class window.Game extends Backbone.Model
     @get('dealerHand') .on 'bust', ->
       alert "You Win!"
       @set 'chips', @get('chips') + @get('bet')
+      @listen()
+    , @
+    @get('playerHand') .on 'compare', ->
+      alert "BLACKJACK!"
+      @set 'chips', @get('chips') + 1.5*@get('bet')
       @listen()
     , @
     @get('dealerHand') .on 'compare', ->

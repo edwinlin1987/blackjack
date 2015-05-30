@@ -8,10 +8,8 @@ class window.Hand extends Backbone.Collection
     if @minScore() > 21
       @trigger('bust')
 
-    @last()
-
   stand: ->
-    @trigger('stand')
+    if @bestScore() == 21 and @length == 2 then @trigger 'compare' else @trigger 'stand'
 
   start: ->
     @at(0).flip()
