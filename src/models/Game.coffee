@@ -5,10 +5,10 @@ class window.Game extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'chips', 1000
     @set 'bet', 0
+    @set 'winner', undefined
     @get('deck').on 'remove', ->
       if @get('deck').length <= 0
         alert "Out of cards... Shuffling the Deck!"
-        #@get('deck').reset(null)
         @get('deck').initialize()
     , @
     @listen()
@@ -20,17 +20,20 @@ class window.Game extends Backbone.Model
       @get('dealerHand').start()
     , @
     @get('playerHand') .on 'bust', ->
-      alert "You Lose!"
+      #alert "You Lose!"
+      @set 'winner', -1
       @set 'chips', @get('chips') - @get('bet')
       @listen()
     , @
     @get('dealerHand') .on 'bust', ->
-      alert "You Win!"
+      #alert "You Win!"
+      @set 'winner', 1
       @set 'chips', @get('chips') + @get('bet')
       @listen()
     , @
     @get('playerHand') .on 'compare', ->
-      alert "BLACKJACK!"
+      #alert "BLACKJACK!"
+      @set 'winner', 2
       @set 'chips', @get('chips') + 1.5*@get('bet')
       @listen()
     , @
@@ -38,12 +41,15 @@ class window.Game extends Backbone.Model
       ph = @get('playerHand').bestScore()
       dh = @get('dealerHand').bestScore()
       if ph > dh
-        alert "You Win!"
+        #alert "You Win!"
+        @set 'winner', 1
         @set 'chips', @get('chips') + @get('bet')
       else if ph == dh
-        alert "You Push!"
+        #alert "You Push!"
+        @set 'winner', 0
       else
-        alert "You Lose!"
+        #alert "You Lose!"
+        @set 'winner', -1
         @set 'chips', @get('chips') - @get('bet')
       @listen()
     , @

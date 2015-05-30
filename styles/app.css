@@ -8,13 +8,40 @@
 }
 
 div {
+  float:left;
   color: #fff;
-  background-color: #090;
-  width: 800px;
+  background-color: #2C6700;
+  width: 750px;
   text-align: center;
 }
 
+#logo {
+  margin-bottom: 10px;
+  height: 100px;
+  width: 180px;
+}
 
+#board {
+  width: 1000px;
+  height: 600px;
+}
+
+.scores {
+  float: left;
+  background-color: #E5E4D7;
+  border-radius: 10px;
+  color: black;
+  width: 180px;
+  height: 450px;
+
+}
+
+.scores-container {
+  float: left;
+  margin: 15px 25px;
+  height: 570px;
+  width: 180px;
+}
 
 button {
   width: 80px;
@@ -22,11 +49,27 @@ button {
   margin: 20px 20px 20px 20px;
   border-radius: 5px;
   background: #fff;
+  font-weight: bold;
 }
 .covered {
   background-color: black;
 }
 
 .hand {
+  margin-top: 10px;
   overflow: auto;
+}
+
+h3 {
+  margin-top: 100px;
+  font-style: normal;
+  font-family: "Arial";
+  font-size: 18px;
+}
+
+h4 {
+  /*margin-bottom: 175px;*/
+  font-style: normal;
+  font-family: "Arial";
+  font-size: 18px;
 }
