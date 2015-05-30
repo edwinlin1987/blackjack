@@ -10,6 +10,22 @@ class window.AppView extends Backbone.View
     'click .stand-button': -> @model.get('playerHand').stand()
 
   initialize: ->
+    @model.get('playerHand') .on 'bust', ->
+      @initialize()
+    , @
+    @model.get('dealerHand') .on 'bust', ->
+      @initialize()
+    , @
+    @model.get('dealerHand') .on 'compare', ->
+      @initialize()
+    , @
+    if @model.get('chips') == 0
+      @model.set 'chips', 1000
+      alert 'You suck at blackjack. I\'ll give you another 1000 chips out of pity.'
+
+    bet = -1
+    bet = +prompt('You have ' + @model.get('chips') + 'chips. How much do you want to bet?') while bet <= 0 or bet > @model.get('chips')
+    @model.set('bet', bet)
     @render()
 
   render: ->

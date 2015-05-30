@@ -12,5 +12,9 @@ class window.HandView extends Backbone.View
     @$el.html @template @collection
     @$el.append @collection.map (card) ->
       new CardView(model: card).$el
-    @$('.score').text @collection.scores()[0]
+    min = @collection.scores()[0]
+    max = @collection.scores()[1]
+    if min == max then @$('.score').text min else @$('.score').text "#{min} or #{max}"
+
+
 
