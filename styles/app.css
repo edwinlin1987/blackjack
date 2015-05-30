@@ -84,6 +84,13 @@ h5 {
   animation-iteration-count: infinite;
 }
 
+h6 {
+  margin-top: 100px;
+  font-style: italic;
+  font-family: "Arial";
+  font-size: 12px;
+}
+
 @keyframes flash {
   0% { color: #c00 }
   25% { color: #996600;}

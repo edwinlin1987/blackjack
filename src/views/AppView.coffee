@@ -17,6 +17,9 @@ class window.AppView extends Backbone.View
       bet = +@$el.find('#betInput').val();
       if bet > 0 and bet <= @model.get('chips')
         @initialize()
+        @model.get('playerHand').showStartingCards()
+        @model.get('dealerHand').showDealerCard()
+        @$el.find('.score').show()
         @$el.find('.hand-button').attr 'disabled', true
         @$el.find('.hit-button').attr 'disabled', false
         @$el.find('.stand-button').attr 'disabled', false
@@ -44,6 +47,9 @@ class window.AppView extends Backbone.View
     bet = +@$el.find('#betInput').val();
     @model.set('bet', bet)
     @render()
+    @model.get('playerHand').hideStartingCards()
+    @model.get('dealerHand').hideStartingCards()
+    @$el.find('.score').hide()
     @$el.find('#newGame').hide()
     @$el.find('.hit-button').attr 'disabled', true
     @$el.find('.stand-button').attr 'disabled', true

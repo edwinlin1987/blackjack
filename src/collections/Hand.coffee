@@ -16,6 +16,17 @@ class window.Hand extends Backbone.Collection
     @hit() while @bestScore() < 17
     @trigger('compare') if @minScore() < 22
 
+  hideStartingCards: ->
+    @at(0).set('revealed', false)
+    @at(1).set('revealed', false)
+
+  showStartingCards: ->
+    @at(0).set('revealed', true)
+    @at(1).set('revealed', true)
+
+  showDealerCard: ->
+    @at(0).set('revealed', false)
+    @at(1).set('revealed', true)
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
