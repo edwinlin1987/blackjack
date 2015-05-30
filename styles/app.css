@@ -73,3 +73,28 @@ h4 {
   font-family: "Arial";
   font-size: 18px;
 }
+
+h5 {
+  font-style: normal;
+  font-family: "Arial";
+  font-size: 24px;
+  color: #CC0000;
+  animation-name: flash;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes flash {
+  0% { color: #c00 }
+  25% { color: #996600;}
+  50% { color: #99CC00;}
+  75% { color: #996600;}
+  100% {color: #c00;}
+}
+
+#restart {
+  color: #33CCFF;
+  text-decoration: underline;
+}
+
+

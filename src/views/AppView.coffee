@@ -7,7 +7,8 @@ class window.AppView extends Backbone.View
     <div class="player-hand-container"></div>
     <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
 
-    <button id="hand-button" class="hand-button">New Hand</button> <input class="hand-button" id="betInput" type="text"></input>'
+    <button id="hand-button" class="hand-button">New Hand</button> <input class="hand-button" placeholder="Place your bet here.." id="betInput" type="text"></input>
+    <div id="newGame">You ran out of chips! <span id="restart">RESTART!</span></div>'
 
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
@@ -21,38 +22,38 @@ class window.AppView extends Backbone.View
         @$el.find('.stand-button').attr 'disabled', false
       else
         alert 'Invalid bet. Try again!'
+    'click #restart': ->
+      @model.set 'chips', 1000
+      @initialize()
 
   initialize: ->
     @model.get('playerHand') .on 'bust', ->
-      @$el.find('.hit-button').attr 'disabled', true
-      @$el.find('.stand-button').attr 'disabled', true
-      @$el.find('.hand-button').attr 'disabled', false
+      @gameEnd()
     , @
     @model.get('dealerHand') .on 'bust', ->
-      @$el.find('.hit-button').attr 'disabled', true
-      @$el.find('.stand-button').attr 'disabled', true
-      @$el.find('.hand-button').attr 'disabled', false
+      @gameEnd()
     , @
     @model.get('playerHand') .on 'compare', ->
-      @$el.find('.hit-button').attr 'disabled', true
-      @$el.find('.stand-button').attr 'disabled', true
-      @$el.find('.hand-button').attr 'disabled', false
+      @gameEnd()
     , @
     @model.get('dealerHand') .on 'compare', ->
-      @$el.find('.hit-button').attr 'disabled', true
-      @$el.find('.stand-button').attr 'disabled', true
-      @$el.find('.hand-button').attr 'disabled', false
+      @gameEnd()
     , @
-    if @model.get('chips') == 0
-      @model.set 'chips', 1000
-      alert 'You suck at blackjack. I\'ll give you another 1000 chips out of pity.'
 
     bet = 0;
     bet = +@$el.find('#betInput').val();
     @model.set('bet', bet)
     @render()
+    @$el.find('#newGame').hide()
     @$el.find('.hit-button').attr 'disabled', true
     @$el.find('.stand-button').attr 'disabled', true
+
+  gameEnd: ->
+    @$el.find('.hit-button').attr 'disabled', true
+    @$el.find('.stand-button').attr 'disabled', true
+    @$el.find('.hand-button').attr 'disabled', false
+    if @model.get('chips') == 0
+      @$el.find('#newGame').show()
 
   render: ->
     @$el.children().detach()
